@@ -1,2 +1,2 @@
 # Symboliverse
-A UML diagram tool.
+An UML diagram tool.
