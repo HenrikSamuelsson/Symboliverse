@@ -20,13 +20,18 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Symboliverse extends Application {
-
+	final static int CANVAS_WIDTH = 400;
+	final static int CANVAS_HEIGHT = 300;
+	final static int GRID_LINE_WIDTH = 1;
+	/** distance between grid lines in pixels */
+	final static int GRID_DISTANCE = 20;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Symboliverse");
 
 		Group root = new Group();
-		Canvas canvas = new Canvas(300, 250);
+		Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
@@ -40,10 +45,20 @@ public class Symboliverse extends Application {
 			
 		});
 		
+		drawGrid(gc);
 		drawShapes(gc);
 		root.getChildren().add(canvas);
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
+	}
+	
+	private void drawGrid(GraphicsContext gc) {
+		gc.setStroke(Color.LIGHTSTEELBLUE);
+		gc.setLineWidth(GRID_LINE_WIDTH);
+		for ( int i = GRID_DISTANCE; i < CANVAS_WIDTH; i += GRID_DISTANCE ) {
+			gc.strokeLine(i, 0, i, CANVAS_HEIGHT);
+			gc.strokeLine(0, i, CANVAS_WIDTH, i);
+		}
 	}
 
 	private void drawShapes(GraphicsContext gc) {
